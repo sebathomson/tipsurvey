@@ -1,0 +1,7 @@
+parameters:
+#    tipddy_hola.example.class: Tipddy\HolaBundle\Example
+
+services:
+#    tipddy_hola.example:
+#        class: %tipddy_hola.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

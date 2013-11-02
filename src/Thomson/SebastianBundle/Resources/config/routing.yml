@@ -1,0 +1,7 @@
+thomson_sebastian_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ThomsonSebastianBundle:Default:index }
+
+thomson_sebastian_holamundo:
+    path:  /
+    defaults: { _controller: ThomsonSebastianBundle:Hola:mundo }

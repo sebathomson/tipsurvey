@@ -1,0 +1,7 @@
+parameters:
+#    thomson_sebastian.example.class: Thomson\SebastianBundle\Example
+
+services:
+#    thomson_sebastian.example:
+#        class: %thomson_sebastian.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
