@@ -1,8 +1,4 @@
-thomson_sebastian:
-    resource: "@ThomsonSebastianBundle/Resources/config/routing.yml"
-    prefix:   /
-
-tipddy_hola:
-    resource: "@TipddyHolaBundle/Resources/config/routing.yml"
+tipddy_survey:
+    resource: "@TipddySurveyBundle/Resources/config/routing.yml"
     prefix:   /
 

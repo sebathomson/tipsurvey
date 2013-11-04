@@ -1,1 +1,2 @@
-EventLifeCycle
+-Event LifeCycle
+-Crear bidirecionalidades en las entidades
