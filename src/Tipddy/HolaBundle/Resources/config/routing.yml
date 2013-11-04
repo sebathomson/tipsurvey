@@ -1,3 +1,0 @@
-tipddy_hola_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: TipddyHolaBundle:Default:index }
