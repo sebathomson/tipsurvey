@@ -43,4 +43,97 @@ class Answer {
 	 * })
 	 */
 	protected $question;  
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set answer
+     *
+     * @param string $answer
+     * @return Answer
+     */
+    public function setAnswer($answer) {
+        $this->answer = $answer;
+    
+        return $this;
+    }
+
+    /**
+     * Get answer
+     *
+     * @return string 
+     */
+    public function getAnswer() {
+        return $this->answer;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return Answer
+     */
+    public function setPhoto($photo) {
+        $this->photo = $photo;
+    
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string 
+     */
+    public function getPhoto() {
+        return $this->photo;
+    }
+
+    /**
+     * Set video
+     *
+     * @param string $video
+     * @return Answer
+     */
+    public function setVideo($video) {
+        $this->video = $video;
+    
+        return $this;
+    }
+
+    /**
+     * Get video
+     *
+     * @return string 
+     */
+    public function getVideo() {
+        return $this->video;
+    }
+
+    /**
+     * Set question
+     *
+     * @param \Tipddy\SurveyBundle\Entity\Question $question
+     * @return Answer
+     */
+    public function setQuestion(\Tipddy\SurveyBundle\Entity\Question $question = null) {
+        $this->question = $question;
+    
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \Tipddy\SurveyBundle\Entity\Question 
+     */
+    public function getQuestion() {
+        return $this->question;
+    }
 }

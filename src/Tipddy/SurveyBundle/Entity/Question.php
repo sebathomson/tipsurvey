@@ -72,4 +72,196 @@ class Question {
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"all"} , orphanRemoval=true)
      */
     protected $answers;
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set question
+     *
+     * @param string $question
+     * @return Question
+     */
+    public function setQuestion($question) {
+        $this->question = $question;
+    
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return string 
+     */
+    public function getQuestion() {
+        return $this->question;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Question
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
+     * Set randomOrder
+     *
+     * @param boolean $randomOrder
+     * @return Question
+     */
+    public function setRandomOrder($randomOrder) {
+        $this->randomOrder = $randomOrder;
+    
+        return $this;
+    }
+
+    /**
+     * Get randomOrder
+     *
+     * @return boolean 
+     */
+    public function getRandomOrder() {
+        return $this->randomOrder;
+    }
+
+    /**
+     * Set questionRequired
+     *
+     * @param boolean $questionRequired
+     * @return Question
+     */
+    public function setQuestionRequired($questionRequired) {
+        $this->questionRequired = $questionRequired;
+    
+        return $this;
+    }
+
+    /**
+     * Get questionRequired
+     *
+     * @return boolean 
+     */
+    public function getQuestionRequired() {
+        return $this->questionRequired;
+    }
+
+    /**
+     * Set survey
+     *
+     * @param \Tipddy\SurveyBundle\Entity\Survey $survey
+     * @return Question
+     */
+    public function setSurvey(\Tipddy\SurveyBundle\Entity\Survey $survey = null) {
+        $this->survey = $survey;
+    
+        return $this;
+    }
+
+    /**
+     * Get survey
+     *
+     * @return \Tipddy\SurveyBundle\Entity\Survey 
+     */
+    public function getSurvey() {
+        return $this->survey;
+    }
+
+    /**
+     * Set questionType
+     *
+     * @param \Tipddy\SurveyBundle\Entity\QuestionType $questionType
+     * @return Question
+     */
+    public function setQuestionType(\Tipddy\SurveyBundle\Entity\QuestionType $questionType = null) {
+        $this->questionType = $questionType;
+    
+        return $this;
+    }
+
+    /**
+     * Get questionType
+     *
+     * @return \Tipddy\SurveyBundle\Entity\QuestionType 
+     */
+    public function getQuestionType() {
+        return $this->questionType;
+    }
+
+    /**
+     * Set answerType
+     *
+     * @param \Tipddy\SurveyBundle\Entity\AnswerType $answerType
+     * @return Question
+     */
+    public function setAnswerType(\Tipddy\SurveyBundle\Entity\AnswerType $answerType = null) {
+        $this->answerType = $answerType;
+    
+        return $this;
+    }
+
+    /**
+     * Get answerType
+     *
+     * @return \Tipddy\SurveyBundle\Entity\AnswerType 
+     */
+    public function getAnswerType() {
+        return $this->answerType;
+    }
+
+    /**
+     * Add answers
+     *
+     * @param \Tipddy\SurveyBundle\Entity\Answer $answers
+     * @return Question
+     */
+    public function addAnswer(\Tipddy\SurveyBundle\Entity\Answer $answers) {
+        $this->answers[] = $answers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove answers
+     *
+     * @param \Tipddy\SurveyBundle\Entity\Answer $answers
+     */
+    public function removeAnswer(\Tipddy\SurveyBundle\Entity\Answer $answers) {
+        $this->answers->removeElement($answers);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnswers() {
+        return $this->answers;
+    }
 }
