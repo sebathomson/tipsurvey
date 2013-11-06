@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tipsurvey_survey")
  * @ORM\Entity
  */
-class Survey {
+class Survey {  
     /**
      * @var bigint $id
      *
@@ -22,11 +22,13 @@ class Survey {
 
     /**
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     *
      */
     protected $title;
-    
+
     /**
      * @ORM\Column(name="description", type="text")
+     *
      */
     protected $description;
 
@@ -34,13 +36,14 @@ class Survey {
      * @ORM\OneToMany(targetEntity="Question", mappedBy="survey", cascade={"all"})
      */
     protected $questions;
+
     /**
      * Constructor
      */
     public function __construct() {
         $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
@@ -58,7 +61,7 @@ class Survey {
      */
     public function setTitle($title) {
         $this->title = $title;
-    
+
         return $this;
     }
 
@@ -79,7 +82,7 @@ class Survey {
      */
     public function setDescription($description) {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -91,7 +94,7 @@ class Survey {
     public function getDescription() {
         return $this->description;
     }
-
+    
     /**
      * Add questions
      *

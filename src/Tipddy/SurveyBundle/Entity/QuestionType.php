@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * QuestionType
  *
- * @ORM\Table(name="tipsurvey_answertype")
+ * @ORM\Table(name="tipsurvey_questiontype")
  * @ORM\Entity
  */
 class QuestionType {
@@ -17,7 +17,7 @@ class QuestionType {
      * @ORM\Column(name="id", type="smallint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-    */
+     */
     private $id;
 
     /**
@@ -42,7 +42,7 @@ class QuestionType {
      */
     public function setEtiqueta($etiqueta) {
         $this->etiqueta = $etiqueta;
-    
+
         return $this;
     }
 

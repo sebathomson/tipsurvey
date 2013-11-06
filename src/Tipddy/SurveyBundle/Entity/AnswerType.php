@@ -11,47 +11,48 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class AnswerType {
-    /**
-     * @var bigint $id
-     *
-     * @ORM\Column(name="id", type="smallint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-    */
-    private $id;
+	/**
+	 * @var bigint $id
+	 *
+	 * @ORM\Column(name="id", type="smallint", nullable=false)
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="IDENTITY")
+	 */
+	private $id;
 
-    /**
-     * @ORM\Column(name="etiqueta", type="string", length=255, nullable=false)
-     */
-    private $etiqueta;
+	/**
+	 * @ORM\Column(name="etiqueta", type="string", length=255, nullable=false)
+	 *
+	 */
+	private $etiqueta;    
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId() {
-        return $this->id;
-    }
+	/**
+	 * Get id
+	 *
+	 * @return integer 
+	 */
+	public function getId() {
+		return $this->id;
+	}
 
-    /**
-     * Set etiqueta
-     *
-     * @param string $etiqueta
-     * @return AnswerType
-     */
-    public function setEtiqueta($etiqueta) {
-        $this->etiqueta = $etiqueta;
-    
-        return $this;
-    }
+	/**
+	 * Set etiqueta
+	 *
+	 * @param string $etiqueta
+	 * @return AnswerType
+	 */
+	public function setEtiqueta($etiqueta) {
+		$this->etiqueta = $etiqueta;
 
-    /**
-     * Get etiqueta
-     *
-     * @return string 
-     */
-    public function getEtiqueta() {
-        return $this->etiqueta;
-    }
+		return $this;
+	}
+
+	/**
+	 * Get etiqueta
+	 *
+	 * @return string 
+	 */
+	public function getEtiqueta() {
+		return $this->etiqueta;
+	}
 }
