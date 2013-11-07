@@ -14,7 +14,7 @@ use Tipddy\SurveyBundle\Form\SurveyType;
  */
 class SurveyController extends Controller {
     /**
-     * Lists all Survey entities.
+     * 1.- Lists all Survey entities.
      *
      */
     public function indexAction() {
@@ -28,7 +28,21 @@ class SurveyController extends Controller {
     }
 
     /**
-     * Creates a new Survey entity.
+     * 2.a- Displays a form to create a new Survey entity.
+     *
+     */
+    public function newAction() {
+        $entity = new Survey();
+        $form   = $this->createCreateForm($entity);
+
+        return $this->render('TipddySurveyBundle:Survey:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * 2.b- Creates a new Survey entity.
      *
      */
     public function createAction(Request $request) {
@@ -51,39 +65,7 @@ class SurveyController extends Controller {
     }
 
     /**
-     * Creates a form to create a Survey entity.
-     *
-     * @param Survey $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Survey $entity) {
-        $form = $this->createForm(new SurveyType(), $entity, array(
-            'action' => $this->generateUrl('survey_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new Survey entity.
-     *
-     */
-    public function newAction() {
-        $entity = new Survey();
-        $form   = $this->createCreateForm($entity);
-
-        return $this->render('TipddySurveyBundle:Survey:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Survey entity.
+     * 3.- Finds and displays a Survey entity.
      *
      */
     public function showAction($id) {
@@ -103,7 +85,7 @@ class SurveyController extends Controller {
     }
 
     /**
-     * Displays a form to edit an existing Survey entity.
+     * 4.a- Displays a form to edit an existing Survey entity.
      *
      */
     public function editAction($id) {
@@ -126,25 +108,7 @@ class SurveyController extends Controller {
     }
 
     /**
-     * Creates a form to edit a Survey entity.
-     *
-     * @param Survey $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(Survey $entity) {
-        $form = $this->createForm(new SurveyType(), $entity, array(
-            'action' => $this->generateUrl('survey_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-
-    /**
-     * Edits an existing Survey entity.
+     * 4.b- Edits an existing Survey entity.
      *
      */
     public function updateAction(Request $request, $id) {
@@ -174,7 +138,7 @@ class SurveyController extends Controller {
     }
 
     /**
-     * Deletes a Survey entity.
+     * 5.- Deletes a Survey entity.
      *
      */
     public function deleteAction(Request $request, $id) {
@@ -197,6 +161,24 @@ class SurveyController extends Controller {
     }
 
     /**
+     * Creates a form to edit a Survey entity.
+     *
+     * @param Survey $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Survey $entity) {
+        $form = $this->createForm(new SurveyType(), $entity, array(
+            'action' => $this->generateUrl('survey_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
+    /**
      * Creates a form to delete a Survey entity by id.
      *
      * @param mixed $id The entity id
@@ -210,5 +192,23 @@ class SurveyController extends Controller {
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /**
+     * Creates a form to create a Survey entity.
+     *
+     * @param Survey $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Survey $entity) {
+        $form = $this->createForm(new SurveyType(), $entity, array(
+            'action' => $this->generateUrl('survey_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
     }
 }
