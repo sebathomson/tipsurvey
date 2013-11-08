@@ -12,3 +12,5 @@ Anotacione del DOCTRINE2: http://docs.doctrine-project.org/en/2.0.x/reference/an
 snippets del SF para ST2: https://github.com/raulfraile/sublime-symfony2
 Agregar foto al perfil
 NIL Vs NULL
+
+Sebastián Thomson!
