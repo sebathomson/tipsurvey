@@ -5,48 +5,48 @@ namespace Tipddy\SurveyBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Tipddy\SurveyBundle\Entity\Survey;
-use Tipddy\SurveyBundle\Form\SurveyType;
+use Tipddy\SurveyBundle\Entity\Question;
+use Tipddy\SurveyBundle\Form\QuestionType;
 
 /**
- * Survey controller.
+ * Question controller.
  *
  */
-class SurveyController extends Controller {
+class QuestionController extends Controller {
     /**
-     * 1.- Lists all Survey entities.
+     * 1.- Lists all Question entities.
      *
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('TipddySurveyBundle:Survey')->findAll();
+        $entities = $em->getRepository('TipddySurveyBundle:Question')->findAll();
 
-        return $this->render('TipddySurveyBundle:Survey:index.html.twig', array(
+        return $this->render('TipddySurveyBundle:Question:index.html.twig', array(
             'entities' => $entities,
             ));
     }
 
     /**
-     * 2.a- Displays a form to create a new Survey entity.
+     * 2.a- Displays a form to create a new Question entity.
      *
      */
     public function newAction() {
-        $entity = new Survey();
+        $entity = new Question();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('TipddySurveyBundle:Survey:new.html.twig', array(
+        return $this->render('TipddySurveyBundle:Question:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             ));
     }
 
     /**
-     * 2.b- Creates a new Survey entity.
+     * 2.b- Creates a new Question entity.
      *
      */
     public function createAction(Request $request) {
-        $entity = new Survey();
+        $entity = new Question();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -55,52 +55,52 @@ class SurveyController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('survey_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('question_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('TipddySurveyBundle:Survey:new.html.twig', array(
+        return $this->render('TipddySurveyBundle:Question:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             ));
     }
 
     /**
-     * 3.- Finds and displays a Survey entity.
+     * 3.- Finds and displays a Question entity.
      *
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TipddySurveyBundle:Survey')->find($id);
+        $entity = $em->getRepository('TipddySurveyBundle:Question')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Survey entity.');
+            throw $this->createNotFoundException('Unable to find Question entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TipddySurveyBundle:Survey:show.html.twig', array(
+        return $this->render('TipddySurveyBundle:Question:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * 4.a- Displays a form to edit an existing Survey entity.
+     * 4.a- Displays a form to edit an existing Question entity.
      *
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TipddySurveyBundle:Survey')->find($id);
+        $entity = $em->getRepository('TipddySurveyBundle:Question')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Survey entity.');
+            throw $this->createNotFoundException('Unable to find Question entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TipddySurveyBundle:Survey:edit.html.twig', array(
+        return $this->render('TipddySurveyBundle:Question:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -108,16 +108,16 @@ class SurveyController extends Controller {
     }
 
     /**
-     * 4.b- Edits an existing Survey entity.
+     * 4.b- Edits an existing Question entity.
      *
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TipddySurveyBundle:Survey')->find($id);
+        $entity = $em->getRepository('TipddySurveyBundle:Question')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Survey entity.');
+            throw $this->createNotFoundException('Unable to find Question entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -127,10 +127,10 @@ class SurveyController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('survey_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('question_edit', array('id' => $id)));
         }
 
-        return $this->render('TipddySurveyBundle:Survey:edit.html.twig', array(
+        return $this->render('TipddySurveyBundle:Question:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -138,7 +138,7 @@ class SurveyController extends Controller {
     }
 
     /**
-     * 5.- Deletes a Survey entity.
+     * 5.- Deletes a Question entity.
      *
      */
     public function deleteAction(Request $request, $id) {
@@ -147,29 +147,29 @@ class SurveyController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('TipddySurveyBundle:Survey')->find($id);
+            $entity = $em->getRepository('TipddySurveyBundle:Question')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Survey entity.');
+                throw $this->createNotFoundException('Unable to find Question entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('survey'));
+        return $this->redirect($this->generateUrl('question'));
     }
 
     /**
-     * Creates a form to create a Survey entity.
+     * Creates a form to create a Question entity.
      *
-     * @param Survey $entity The entity
+     * @param Question $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Survey $entity) {
-        $form = $this->createForm(new SurveyType(), $entity, array(
-            'action' => $this->generateUrl('survey_create'),
+    private function createCreateForm(Question $entity) {
+        $form = $this->createForm(new QuestionType(), $entity, array(
+            'action' => $this->generateUrl('question_create'),
             'method' => 'POST',
             ));
 
@@ -179,15 +179,15 @@ class SurveyController extends Controller {
     }
 
     /**
-     * Creates a form to edit a Survey entity.
+     * Creates a form to edit a Question entity.
      *
-     * @param Survey $entity The entity
+     * @param Question $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Survey $entity) {
-        $form = $this->createForm(new SurveyType(), $entity, array(
-            'action' => $this->generateUrl('survey_update', array('id' => $entity->getId())),
+    private function createEditForm(Question $entity) {
+        $form = $this->createForm(new QuestionType(), $entity, array(
+            'action' => $this->generateUrl('question_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             ));
 
@@ -197,7 +197,7 @@ class SurveyController extends Controller {
     }
 
     /**
-     * Creates a form to delete a Survey entity by id.
+     * Creates a form to delete a Question entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -205,7 +205,7 @@ class SurveyController extends Controller {
      */
     private function createDeleteForm($id) {
         return $this->createFormBuilder()
-        ->setAction($this->generateUrl('survey_delete', array('id' => $id)))
+        ->setAction($this->generateUrl('question_delete', array('id' => $id)))
         ->setMethod('DELETE')
         ->add('submit', 'submit', array('label' => 'Delete'))
         ->getForm()

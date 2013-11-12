@@ -39,6 +39,13 @@ class AnswerType {
         $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * __toString
+     */
+    public function __toString() {
+        return $this->getEtiqueta();
+    }
+
 	/**
 	 * Get id
 	 *

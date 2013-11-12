@@ -39,6 +39,13 @@ class QuestionType {
     }
 
     /**
+     * __toString
+     */
+    public function __toString() {
+        return $this->getEtiqueta();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
