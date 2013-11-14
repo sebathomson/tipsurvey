@@ -74,7 +74,7 @@ class Question {
     protected $answerType;
 
     /**
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"all"}, orphanRemoval=true)
      *
      */
     protected $answers;
@@ -250,6 +250,9 @@ class Question {
      */
     public function addAnswer(\Tipddy\SurveyBundle\Entity\Answer $answers) {
         $this->answers[] = $answers;
+
+        // para relacionar la respuesta con la pregunta
+        $answers->setQuestion($this);
 
         return $this;
     }

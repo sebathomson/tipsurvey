@@ -3,6 +3,7 @@
 namespace Tipddy\SurveyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Answer
@@ -21,20 +22,22 @@ class Answer {
 	protected $id;
 
 	/**
-	 * @ORM\Column(name="answer", type="text")
+	 * @ORM\Column(name="answer", type="text", nullable=true)
 	 *
 	 */
 	protected $answer;        
 
 	/**
-	 * @ORM\Column(name="photo", type="string", length=255, nullable=false)
+	 * @ORM\Column(name="photo", type="string", length=255, nullable=true)
 	 *
+	 * @Assert\Image()
 	 */
 	protected $photo;
 
 	/**
-	 * @ORM\Column(name="video", type="text")
+	 * @ORM\Column(name="video", type="text", nullable=true)
 	 *
+	 * @Assert\Url()
 	 */
 	protected $video;
 
