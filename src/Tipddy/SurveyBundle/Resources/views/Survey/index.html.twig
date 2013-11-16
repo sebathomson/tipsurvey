@@ -23,13 +23,13 @@
             <td class="td-actions">
                 <ul id="iconos">
                     <li>
-                        <a id="show" href="{{ path('survey_show', { 'id': entity.id }) }}"></a>
+                        <a id="show" class="show" href="{{ path('survey_show', { 'id': entity.id }) }}"></a>
                     </li>
                     <li>
-                        <a id="edit" href="{{ path('survey_edit', { 'id': entity.id }) }}"></a>
+                        <a id="edit" class="edit" href="{{ path('survey_edit', { 'id': entity.id }) }}"></a>
                     </li>
                     <li>
-                        <a id="deleted" href="{{ path('survey_edit', { 'id': entity.id }) }}"></a>
+                        <a id="deleted" class="deleted" href="{{ path('survey_delete', { 'id': entity.id }) }}"></a>
                     </li>
 
                 </ul>
@@ -38,4 +38,17 @@
         {% endfor %}
     </tbody>
 </table>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+    <script type="text/javascript">
+    $(document).on('ready', function () {
+        $('.deleted').on('click', function (e) {
+            e.preventDefault();
+            $.post($(this).attr('href'), null, function (response) {
+               location.reload();
+            });
+        });
+    });
+    </script>
 {% endblock %}

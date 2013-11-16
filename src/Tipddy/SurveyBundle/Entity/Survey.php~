@@ -3,7 +3,6 @@
 namespace Tipddy\SurveyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Tipddy\BackendBundle\Util\Util;
 
 /**
  * Survey
@@ -69,8 +68,6 @@ class Survey {
      */
     public function setTitle($title) {
         $this->title = $title;
-
-        $this->setSlug(Util::getSlug($title));
 
         return $this;
     }
