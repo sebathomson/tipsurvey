@@ -16,3 +16,6 @@ NIL Vs NULL
 Sebastián Thomson!
 
 lalalalal
+
+El valor que guarda el bundle de auditoria está serializado!!!!!
+Hay que DESserializarlo.
