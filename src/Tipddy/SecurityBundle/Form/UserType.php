@@ -12,19 +12,27 @@ class UserType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
+        public function buildForm(FormBuilderInterface $builder, array $options)
+        {
+            $builder
             ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('password')
-            ->add('salt')
+            ->add('lastName');
+
+            if (null == $options['data']->getId()) {
+                $builder->add('email')
+                ->add('password', 'password', array('required'=>true));
+            } else {
+                $builder->add('email', null, array('read_only' => true))
+                ->add('password', 'password', array('required'=>false));
+            }
+
+            $builder
+            // ->add('salt')
             ->add('address')
             ->add('userRoles')
-        ;
-    }
-    
+            ;
+        }
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -32,7 +40,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Tipddy\SecurityBundle\Entity\User'
-        ));
+            ));
     }
 
     /**

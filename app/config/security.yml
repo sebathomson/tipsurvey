@@ -26,5 +26,5 @@ security:
         user_db:
             entity: { class: Tipddy\SecurityBundle\Entity\User, property: email }
     encoders:
-        Tipddy\SecurityBundle\Entity\Use: { algorithm: sha512, iterations: 10 }
+        Tipddy\SecurityBundle\Entity\User: { algorithm: sha512, iterations: 10 }
         Symfony\Component\Security\Core\User\User: plaintext

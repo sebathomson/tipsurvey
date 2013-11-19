@@ -41,6 +41,15 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity = $form->getData();
+
+            // password
+            $factory = $this->get('security.encoder_factory');
+            $code = $factory->getEncoder($entity);
+            $password = $code->encodePassword($entity->getPassword(), $entity->getSalt());
+
+            $entity->setPassword($password);
+
             $em->persist($entity);
             $em->flush();
 
@@ -166,9 +175,24 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
+
+        $passwordOld = $entity->getPassword();
+
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity = $editForm->getData();
+
+            // password
+            $factory = $this->get('security.encoder_factory');
+            $code = $factory->getEncoder($entity);
+            $password = $code->encodePassword($entity->getPassword(), $entity->getSalt());
+            if ($password != $passwordOld) {
+                $entity->setPassword($password);
+            }
+
+            $em->persist($entity);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
