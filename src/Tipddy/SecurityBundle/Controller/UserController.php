@@ -27,7 +27,7 @@ class UserController extends Controller
 
         return $this->render('TipddySecurityBundle:User:index.html.twig', array(
             'entities' => $entities,
-        ));
+            ));
     }
     /**
      * Creates a new User entity.
@@ -59,7 +59,7 @@ class UserController extends Controller
         return $this->render('TipddySecurityBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+            ));
     }
 
     /**
@@ -74,7 +74,7 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
-        ));
+            ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -93,7 +93,7 @@ class UserController extends Controller
         return $this->render('TipddySecurityBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+            ));
     }
 
     /**
@@ -138,7 +138,7 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+            ));
     }
 
     /**
@@ -153,7 +153,7 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-        ));
+            ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -187,8 +187,15 @@ class UserController extends Controller
             $factory = $this->get('security.encoder_factory');
             $code = $factory->getEncoder($entity);
             $password = $code->encodePassword($entity->getPassword(), $entity->getSalt());
-            if ($password != $passwordOld) {
-                $entity->setPassword($password);
+
+            if ($entity->getPassword() != NULL) {
+                if ($password != $passwordOld) {
+                    $entity->setPassword($password);
+                } else {
+                    $entity->setPassword($passwordOld);
+                }
+            } else {
+                $entity->setPassword($passwordOld);
             }
 
             $em->persist($entity);
@@ -202,7 +209,7 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+            ));
     }
     /**
      * Deletes a User entity.
@@ -238,10 +245,10 @@ class UserController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+        ->setMethod('DELETE')
+        ->add('submit', 'submit', array('label' => 'Delete'))
+        ->getForm()
         ;
     }
 }
