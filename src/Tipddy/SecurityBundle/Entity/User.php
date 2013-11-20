@@ -12,8 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="tipsurvey_user")
  * @ORM\Entity
  */
-class User implements UserInterface, \Serializable
-{
+ class User implements UserInterface, \Serializable
+ {
 	 /**
 	  * @var bigint $id
 	  *
@@ -34,7 +34,7 @@ class User implements UserInterface, \Serializable
 	  *
 	  */
 	 private $lastName;
-
+	
 	 /**
 	  * @ORM\Column(name="email", type="string", length=255, unique=true)
 	  *
@@ -59,7 +59,7 @@ class User implements UserInterface, \Serializable
 	  */
 	 private $address;
 	 
-
+	
     /**
      * @ORM\ManyToMany(targetEntity="Role")
      * @ORM\JoinTable(name="tipsurvey_user_role",
@@ -67,17 +67,17 @@ class User implements UserInterface, \Serializable
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
 	 *      )
 	 */    
-    private $userRoles;
-
-
-
+	 private $userRoles;
+	 
+	 
+	 
 	 /**
       * Método requerido por la interfaz UserInterface, se invoca cuando la aplicación desea borrar información sensible del usuario, por ejemplo contraseña, en la mayoría de las aplicaciones puede estar vacío
       */
-     public function eraseCredentials()
-     {
+    public function eraseCredentials()
+    {
 
-     }
+    }
 
 
     /**
@@ -85,8 +85,23 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        // return array('ROLE_USUARIO');
+        //return array('ROLE_USUARIO');
         return $this->userRoles->toArray();
+    }
+
+    public function getTypeUser()
+    {
+	    $typeRoles = $this->getRoles();
+	    $textRoles = "";
+	    foreach($typeRoles as $i => $typeRol) {
+		    if ($i > 0) {
+			  $textRoles .= ",";    
+		    }
+		      $textRoles .= $typeRol;    
+		    
+	    }
+	    
+	    return  $textRoles;
     }
 
 
@@ -97,20 +112,15 @@ class User implements UserInterface, \Serializable
     {
         return $this->getEmail();
     }
-
-
-
+	 
+	 
+	 
      /**
      * Constructor
      */
-     public function __construct()
-     {
-        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    public function __toString()
+    public function __construct()
     {
-        return $this->firstName." ".$this->lastName;
+        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -132,7 +142,7 @@ class User implements UserInterface, \Serializable
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-
+    
         return $this;
     }
 
@@ -155,7 +165,7 @@ class User implements UserInterface, \Serializable
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
+    
         return $this;
     }
 
@@ -178,7 +188,7 @@ class User implements UserInterface, \Serializable
     public function setEmail($email)
     {
         $this->email = $email;
-
+    
         return $this;
     }
 
@@ -201,7 +211,7 @@ class User implements UserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
-
+    
         return $this;
     }
 
@@ -224,7 +234,7 @@ class User implements UserInterface, \Serializable
     public function setSalt($salt)
     {
         $this->salt = $salt;
-
+    
         return $this;
     }
 
@@ -247,7 +257,7 @@ class User implements UserInterface, \Serializable
     public function setAddress($address)
     {
         $this->address = $address;
-
+    
         return $this;
     }
 
@@ -261,6 +271,8 @@ class User implements UserInterface, \Serializable
         return $this->address;
     }
 
+
+   
     /**
      * Add userRoles
      *
@@ -270,10 +282,10 @@ class User implements UserInterface, \Serializable
     public function addUserRole(\Tipddy\SecurityBundle\Entity\Role $userRoles)
     {
         $this->userRoles[] = $userRoles;
-
+    
         return $this;
     }
-
+    
     /**
      * Remove userRoles
      *
@@ -293,10 +305,10 @@ class User implements UserInterface, \Serializable
     {
         return $this->userRoles;
     }
-
+    
     /**
-    * @see \Serializable::serialize()
-    */
+     * @see \Serializable::serialize()
+     */
     public function serialize()
     {
         return serialize(array(
@@ -306,13 +318,13 @@ class User implements UserInterface, \Serializable
             $this->email,
             $this->password,
             $this->salt,
-            $this->address, 
-            ));
+            $this->address,             
+        ));
     }
 
     /**
-    * @see \Serializable::unserialize()
-    */
+     * @see \Serializable::unserialize()
+     */
     public function unserialize($serialized)
     {
         list (
@@ -323,20 +335,12 @@ class User implements UserInterface, \Serializable
             $this->password,
             $this->salt,
             $this->address
-            ) = unserialize($serialized);
+        ) = unserialize($serialized);
     }
-
-    public function getTypeUser()
+    
+    public function __toString()
     {
-        $typeRoles = $this->getRoles();
-        $textRoles = "";
-        foreach($typeRoles as $i => $typeRol) {
-            if ($i > 0) {
-                $textRoles .= ", "; 
-            }
-            $textRoles .= $typeRol;    
-        }
-
-        return $textRoles;
+	    return $this->getFirstName()." ".$this->getLastName();
     }
+    
 }

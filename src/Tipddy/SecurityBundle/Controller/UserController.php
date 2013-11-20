@@ -27,7 +27,7 @@ class UserController extends Controller
 
         return $this->render('TipddySecurityBundle:User:index.html.twig', array(
             'entities' => $entities,
-            ));
+        ));
     }
     /**
      * Creates a new User entity.
@@ -42,14 +42,15 @@ class UserController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $form->getData();
-
-            // password
+            
+            //password
             $factory = $this->get('security.encoder_factory');
             $code = $factory->getEncoder($entity);
             $password = $code->encodePassword($entity->getPassword(), $entity->getSalt());
-
+            
             $entity->setPassword($password);
-
+            
+            
             $em->persist($entity);
             $em->flush();
 
@@ -59,7 +60,7 @@ class UserController extends Controller
         return $this->render('TipddySecurityBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            ));
+        ));
     }
 
     /**
@@ -74,7 +75,7 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
-            ));
+        ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -93,7 +94,7 @@ class UserController extends Controller
         return $this->render('TipddySecurityBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            ));
+        ));
     }
 
     /**
@@ -138,7 +139,7 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            ));
+        ));
     }
 
     /**
@@ -153,7 +154,7 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            ));
+        ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -175,31 +176,23 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
-
-        $passwordOld = $entity->getPassword();
-
+        
+        $passwordOld = $editForm->getData()->getPassword();
+        
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity = $editForm->getData();
-
-            // password
-            $factory = $this->get('security.encoder_factory');
-            $code = $factory->getEncoder($entity);
-            $password = $code->encodePassword($entity->getPassword(), $entity->getSalt());
-
-            if ($entity->getPassword() != NULL) {
-                if ($password != $passwordOld) {
-                    $entity->setPassword($password);
-                } else {
-                    $entity->setPassword($passwordOld);
-                }
+            
+            if (null == $editForm->getData()->getPassword()) {
+	            $entity->setPassword($passwordOld);
+	            
             } else {
-                $entity->setPassword($passwordOld);
+	            $factory = $this->get('security.encoder_factory');
+	            $code = $factory->getEncoder($entity);
+	            $password = $code->encodePassword($entity->getPassword(), $entity->getSalt());
+	            $entity->setPassword($password);
             }
-
-            $em->persist($entity);
-
+            
             $em->flush();
 
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
@@ -209,7 +202,7 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            ));
+        ));
     }
     /**
      * Deletes a User entity.
@@ -245,10 +238,12 @@ class UserController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-        ->setMethod('DELETE')
-        ->add('submit', 'submit', array('label' => 'Delete'))
-        ->getForm()
+            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
         ;
     }
+    
+        
 }

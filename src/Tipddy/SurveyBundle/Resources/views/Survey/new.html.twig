@@ -1,13 +1,13 @@
 {% extends 'TipddyBackendBundle::layout.html.twig' %}
 
 {% block content -%}
-  {{ form_start(form, {'attr' : {'novalidate' : 'novalidate'} } ) }}
-  <fieldset>
-    <legend>Nueva Encueseta</legend>
-    {{ form_row(form.title, {'label' : 'Título'} ) }}
-    {{ form_row(form.description, {'label' : 'Descripción' } ) }}
-  </fieldset> 
-{% include 'TipddyBackendBundle::includes/buttons-form.html.twig' with {'btn_action' : 'Crear', 'route' : 'survey'} %}  
+   {{ form_start(form, {'attr' : {'novalidate' : 'novalidate'} } ) }}
+   <fieldset>
+     <legend>Nueva Encuesta</legend>
+     {{ form_row(form.title, {'label' : 'Título'} ) }}
+     {{ form_row(form.description, {'label' : 'Descripción' } ) }}
+   </fieldset> 
+ {% include 'TipddyBackendBundle::includes/buttons-form.html.twig' with {'btn_action' : 'Crear', 'route' : 'survey'} %}  
   {{ form_row(form._token) }} 
   {{ form_end(form, {'render_rest' : false } ) }}
   

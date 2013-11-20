@@ -1,6 +1,6 @@
 comment_sendinformation:
     pattern: /sendinformation
-    defaults: { _controller: "TipddyBackendBundle:Default:sendinformation" }
+    defaults: { _controller: "TipddyBackendBundle:Default:sendInformation" }
 
 comment_sendinformation_create:
     pattern: /sendinformation/create

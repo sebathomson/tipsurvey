@@ -10,79 +10,95 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tipsurvey_question")
  * @ORM\Entity
  */
-class Question {
-    /**
-     * @var bigint $id
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(name="question", type="text")
-     *
-     */
-    protected $question;
-
-
-    /**
-     * @ORM\Column(name="description", type="text")
-     *
-     */
-    protected $description;
-
-
-    /**
-     * @ORM\Column(name="random_order", type="boolean")
-     *
-     */
-    protected $randomOrder;  //respuestas en orden randomico.
-
-    /**
-     * @ORM\Column(name="question_required", type="boolean")
-     *
-     */
-    protected $questionRequired; //Si la pregunta es obligatoria   
-
-    /**
-     * 
-     * @ORM\ManyToOne(targetEntity="Survey", inversedBy="questions")
-     * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="survey_id",    referencedColumnName="id")
-     * })
-     */
-    protected $survey;   
+class Question
+{
+       /**
+        * @var bigint $id
+        *
+        * @ORM\Column(name="id", type="bigint", nullable=false)
+        * @ORM\Id
+        * @ORM\GeneratedValue(strategy="IDENTITY")
+        */
+       protected $id;
+     
+       /**
+        * @ORM\Column(name="question", type="text")
+        *
+        */
+       protected $question;
+      
+      
+       /**
+        * @ORM\Column(name="description", type="text")
+        *
+        */
+       protected $description;
     
-    /**
-     * 
-     * @ORM\ManyToOne(targetEntity="QuestionType", inversedBy="questions")
-     * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="questiontype_id",    referencedColumnName="id")
-     * })
-     */              
-    protected $questionType;   
     
-    /**
-     * 
-     * @ORM\ManyToOne(targetEntity="AnswerType", inversedBy="questions")
-     * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="answertype_id",    referencedColumnName="id")
-     * })
-     */       
-    protected $answerType;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"all"}, orphanRemoval=true)
-     *
-     */
-    protected $answers;
+       /**
+        * @ORM\Column(name="random_order", type="boolean")
+        *
+        */
+       protected $randomOrder;  //respuestas en orden randomico.
+    
+    
+       /**
+        * @ORM\Column(name="question_required", type="boolean")
+        *
+        */
+       protected $questionRequired; //Si la pregunta es obligatoria   
+    
+    
+       /**
+        * 
+        * @ORM\ManyToOne(targetEntity="Survey", inversedBy="questions")
+        * @ORM\JoinColumns({
+        * @ORM\JoinColumn(name="survey_id",    referencedColumnName="id")
+        * })
+        */
+       protected $survey;
+       
+       
+       
+       /**
+        * 
+        * @ORM\ManyToOne(targetEntity="QuestionType", inversedBy="questions")
+        * @ORM\JoinColumns({
+        * @ORM\JoinColumn(name="questiontype_id",    referencedColumnName="id")
+        * })
+        */              
+       protected $questionType;
+       
+       
+       /**
+        * 
+        * @ORM\ManyToOne(targetEntity="AnswerType")
+        * @ORM\JoinColumns({
+        * @ORM\JoinColumn(name="answertype_id",    referencedColumnName="id")
+        * })
+        */       
+       protected $answerType;
+      
+      
+      /**
+       * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"all"}, orphanRemoval=true)
+       *
+       */
+       protected $answers;
+       
+       
+       public function __toString()
+       {
+	       return $this->getQuestion();
+       }
+       
+       
 
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -91,7 +107,8 @@ class Question {
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -101,9 +118,10 @@ class Question {
      * @param string $question
      * @return Question
      */
-    public function setQuestion($question) {
+    public function setQuestion($question)
+    {
         $this->question = $question;
-
+    
         return $this;
     }
 
@@ -112,7 +130,8 @@ class Question {
      *
      * @return string 
      */
-    public function getQuestion() {
+    public function getQuestion()
+    {
         return $this->question;
     }
 
@@ -122,9 +141,10 @@ class Question {
      * @param string $description
      * @return Question
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
-
+    
         return $this;
     }
 
@@ -133,7 +153,8 @@ class Question {
      *
      * @return string 
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -143,9 +164,10 @@ class Question {
      * @param boolean $randomOrder
      * @return Question
      */
-    public function setRandomOrder($randomOrder) {
+    public function setRandomOrder($randomOrder)
+    {
         $this->randomOrder = $randomOrder;
-
+    
         return $this;
     }
 
@@ -154,7 +176,8 @@ class Question {
      *
      * @return boolean 
      */
-    public function getRandomOrder() {
+    public function getRandomOrder()
+    {
         return $this->randomOrder;
     }
 
@@ -164,9 +187,10 @@ class Question {
      * @param boolean $questionRequired
      * @return Question
      */
-    public function setQuestionRequired($questionRequired) {
+    public function setQuestionRequired($questionRequired)
+    {
         $this->questionRequired = $questionRequired;
-
+    
         return $this;
     }
 
@@ -175,7 +199,8 @@ class Question {
      *
      * @return boolean 
      */
-    public function getQuestionRequired() {
+    public function getQuestionRequired()
+    {
         return $this->questionRequired;
     }
 
@@ -185,9 +210,10 @@ class Question {
      * @param \Tipddy\SurveyBundle\Entity\Survey $survey
      * @return Question
      */
-    public function setSurvey(\Tipddy\SurveyBundle\Entity\Survey $survey = null) {
+    public function setSurvey(\Tipddy\SurveyBundle\Entity\Survey $survey = null)
+    {
         $this->survey = $survey;
-
+    
         return $this;
     }
 
@@ -196,7 +222,8 @@ class Question {
      *
      * @return \Tipddy\SurveyBundle\Entity\Survey 
      */
-    public function getSurvey() {
+    public function getSurvey()
+    {
         return $this->survey;
     }
 
@@ -206,9 +233,10 @@ class Question {
      * @param \Tipddy\SurveyBundle\Entity\QuestionType $questionType
      * @return Question
      */
-    public function setQuestionType(\Tipddy\SurveyBundle\Entity\QuestionType $questionType = null) {
+    public function setQuestionType(\Tipddy\SurveyBundle\Entity\QuestionType $questionType = null)
+    {
         $this->questionType = $questionType;
-
+    
         return $this;
     }
 
@@ -217,7 +245,8 @@ class Question {
      *
      * @return \Tipddy\SurveyBundle\Entity\QuestionType 
      */
-    public function getQuestionType() {
+    public function getQuestionType()
+    {
         return $this->questionType;
     }
 
@@ -227,9 +256,10 @@ class Question {
      * @param \Tipddy\SurveyBundle\Entity\AnswerType $answerType
      * @return Question
      */
-    public function setAnswerType(\Tipddy\SurveyBundle\Entity\AnswerType $answerType = null) {
+    public function setAnswerType(\Tipddy\SurveyBundle\Entity\AnswerType $answerType = null)
+    {
         $this->answerType = $answerType;
-
+    
         return $this;
     }
 
@@ -238,7 +268,8 @@ class Question {
      *
      * @return \Tipddy\SurveyBundle\Entity\AnswerType 
      */
-    public function getAnswerType() {
+    public function getAnswerType()
+    {
         return $this->answerType;
     }
 
@@ -248,12 +279,13 @@ class Question {
      * @param \Tipddy\SurveyBundle\Entity\Answer $answers
      * @return Question
      */
-    public function addAnswer(\Tipddy\SurveyBundle\Entity\Answer $answers) {
+    public function addAnswer(\Tipddy\SurveyBundle\Entity\Answer $answers)
+    {
         $this->answers[] = $answers;
-
-        // para relacionar la respuesta con la pregunta
+        
+        //para relacionar con el elemento que creo
         $answers->setQuestion($this);
-
+    
         return $this;
     }
 
@@ -262,7 +294,8 @@ class Question {
      *
      * @param \Tipddy\SurveyBundle\Entity\Answer $answers
      */
-    public function removeAnswer(\Tipddy\SurveyBundle\Entity\Answer $answers) {
+    public function removeAnswer(\Tipddy\SurveyBundle\Entity\Answer $answers)
+    {
         $this->answers->removeElement($answers);
     }
 
@@ -271,7 +304,8 @@ class Question {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAnswers() {
+    public function getAnswers()
+    {
         return $this->answers;
     }
 }

@@ -5,6 +5,7 @@ namespace Tipddy\SurveyBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 use Tipddy\SurveyBundle\Form\AnswerType;
 
 class QuestionType extends AbstractType
@@ -20,22 +21,19 @@ class QuestionType extends AbstractType
             ->add('description')
             ->add('randomOrder')
             ->add('questionRequired')
-            // ->add('survey')
+           // ->add('survey')
             ->add('questionType')
             ->add('answerType')
-            ->add('answers', 'collection', 
-                array(
-                     'type'          => new AnswerType()
-                     ,'allow_add'    => true
-                     ,'allow_delete' => true
-                     ,'required'     => true
-                     ,'by_reference' => false
-                )
-            )
-        ;
+            ->add('answers', 'collection', array(
+                 'type' => new AnswerType(),
+                 'allow_add' => true,
+                 'allow_delete' => true,
+                 'required' => true,
+                 'by_reference' => false
+            ));
     }
     
-    /**
+    /**	
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)

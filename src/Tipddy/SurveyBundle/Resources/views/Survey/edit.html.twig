@@ -1,25 +1,29 @@
 {% extends 'TipddyBackendBundle::layout.html.twig' %}
 
 {% block content -%}
-  {{ form_start(edit_form) }}  
-  <fieldset>
-    <legend>Editando</legend>
-    {{ form_row(edit_form.title, {'label' : 'Título' }) }}
-    {{ form_row(edit_form.description, {'label' : 'Descripción' }) }}
-  </fieldset>
-{{ include('TipddyBackendBundle::includes/buttons-form.html.twig', {'btn_action' : 'Actualizar', 'route': 'survey'}) }}
-
-{{ form_row(edit_form._token) }}
-
-{{ form_end(edit_form, {'render_rest' : false }) }}
-
+  {{ form_start(edit_form) }}   
+   <fieldset>
+     <legend>Editando</legend>
+     {{ form_row(edit_form.title, {'label' : 'Título' }) }}
+     {{ form_row(edit_form.description, {'label' : 'Descripción' }) }}
+   </fieldset>
+ {{ include('TipddyBackendBundle::includes/buttons-form.html.twig', {'btn_action' : 'Actualizar', 'route': 'survey'}) }}
+ 
+ {{ form_row(edit_form._token) }}
+ 
+ {{ form_end(edit_form, {'render_rest' : false }) }}
+ 
   <p id="nav">
-    <a href="{{ path('survey') }}">Volver Listado</a>
-    |
-    <a href="#">Borrar</a>
+     <a href="{{ path('survey') }}">Volver Listado</a>
+     |
+     <a href="#">Borrar</a>
     </p>  
 
 <ul class="record_actions">
         <li>{{ form(delete_form) }}</li>
 </ul>
+ 
+ 
+ 
+   
 {% endblock %}

@@ -12,40 +12,29 @@ use Tipddy\SurveyBundle\Form\QuestionType;
  * Question controller.
  *
  */
-class QuestionController extends Controller {
+class QuestionController extends Controller
+{
+
     /**
-     * 1.- Lists all Question entities.
+     * Lists all Question entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('TipddySurveyBundle:Question')->findAll();
 
         return $this->render('TipddySurveyBundle:Question:index.html.twig', array(
             'entities' => $entities,
-            ));
+        ));
     }
-
     /**
-     * 2.a- Displays a form to create a new Question entity.
+     * Creates a new Question entity.
      *
      */
-    public function newAction() {
-        $entity = new Question();
-        $form   = $this->createCreateForm($entity);
-
-        return $this->render('TipddySurveyBundle:Question:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-            ));
-    }
-
-    /**
-     * 2.b- Creates a new Question entity.
-     *
-     */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Question();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -61,14 +50,49 @@ class QuestionController extends Controller {
         return $this->render('TipddySurveyBundle:Question:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            ));
+        ));
     }
 
     /**
-     * 3.- Finds and displays a Question entity.
+    * Creates a form to create a Question entity.
+    *
+    * @param Question $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createCreateForm(Question $entity)
+    {
+        $form = $this->createForm(new QuestionType(), $entity, array(
+            'action' => $this->generateUrl('question_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Displays a form to create a new Question entity.
      *
      */
-    public function showAction($id) {
+    public function newAction()
+    {
+        $entity = new Question();
+        $form   = $this->createCreateForm($entity);
+
+        return $this->render('TipddySurveyBundle:Question:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a Question entity.
+     *
+     */
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TipddySurveyBundle:Question')->find($id);
@@ -85,10 +109,11 @@ class QuestionController extends Controller {
     }
 
     /**
-     * 4.a- Displays a form to edit an existing Question entity.
+     * Displays a form to edit an existing Question entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TipddySurveyBundle:Question')->find($id);
@@ -104,14 +129,33 @@ class QuestionController extends Controller {
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            ));
+        ));
     }
 
     /**
-     * 4.b- Edits an existing Question entity.
+    * Creates a form to edit a Question entity.
+    *
+    * @param Question $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Question $entity)
+    {
+        $form = $this->createForm(new QuestionType(), $entity, array(
+            'action' => $this->generateUrl('question_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+    /**
+     * Edits an existing Question entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('TipddySurveyBundle:Question')->find($id);
@@ -134,14 +178,14 @@ class QuestionController extends Controller {
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            ));
+        ));
     }
-
     /**
-     * 5.- Deletes a Question entity.
+     * Deletes a Question entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -161,54 +205,19 @@ class QuestionController extends Controller {
     }
 
     /**
-     * Creates a form to create a Question entity.
-     *
-     * @param Question $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Question $entity) {
-        $form = $this->createForm(new QuestionType(), $entity, array(
-            'action' => $this->generateUrl('question_create'),
-            'method' => 'POST',
-            ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Creates a form to edit a Question entity.
-     *
-     * @param Question $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(Question $entity) {
-        $form = $this->createForm(new QuestionType(), $entity, array(
-            'action' => $this->generateUrl('question_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-            ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-
-    /**
      * Creates a form to delete a Question entity by id.
      *
      * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-        ->setAction($this->generateUrl('question_delete', array('id' => $id)))
-        ->setMethod('DELETE')
-        ->add('submit', 'submit', array('label' => 'Delete'))
-        ->getForm()
+            ->setAction($this->generateUrl('question_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
         ;
     }
 }

@@ -3,6 +3,8 @@
 namespace Tipddy\SurveyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Tipddy\BackendBundle\Util\Util;
 
 /**
@@ -11,53 +13,54 @@ use Tipddy\BackendBundle\Util\Util;
  * @ORM\Table(name="tipsurvey_survey")
  * @ORM\Entity
  */
-class Survey {
-    /**
-     * @var bigint $id
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    protected $id;
+class Survey
+{
+       /**
+        * @var bigint $id
+        *
+        * @ORM\Column(name="id", type="bigint", nullable=false)
+        * @ORM\Id
+        * @ORM\GeneratedValue(strategy="IDENTITY")
+        */
+       protected $id;
+   
+       /**
+        * @ORM\Column(name="title", type="string", length=255, nullable=false)
+        *
+        * @Assert\NotBlank()
+        */
+       protected $title;
+	
+	
+       /**
+        * @ORM\Column(name="description", type="text")
+        *
+        * @Assert\NotBlank()
+        */
+      protected $description;
+      
+      
+      /**
+       * @ORM\Column(name="slug", type="string", length=255, nullable=false)
+       */
+      protected $slug;
 
-    /**
-     * @ORM\Column(name="title", type="string", length=255, nullable=false)
-     *
-     */
-    protected $title;
 
-    /**
-     * @ORM\Column(name="description", type="text")
-     *
-     */
-    protected $description;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey", cascade={"all"})
-     */
-    protected $questions;
+      /**
+       * @ORM\OneToMany(targetEntity="Question", mappedBy="survey", cascade={"all"})
+       *
+       */
+      protected $questions;
 
 
-    /**
-     * @ORM\Column(name="slug", type="string", length=255, nullable=false)
-     *
-     */
-    protected $slug;
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -67,11 +70,12 @@ class Survey {
      * @param string $title
      * @return Survey
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
-
-        $this->setSlug(Util::getSlug($title));
-
+        
+        $this->slug = Util::getSlug($title);
+        
         return $this;
     }
 
@@ -80,7 +84,8 @@ class Survey {
      *
      * @return string 
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
@@ -90,9 +95,10 @@ class Survey {
      * @param string $description
      * @return Survey
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
-
+    
         return $this;
     }
 
@@ -101,8 +107,16 @@ class Survey {
      *
      * @return string 
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -111,7 +125,8 @@ class Survey {
      * @param \Tipddy\SurveyBundle\Entity\Question $questions
      * @return Survey
      */
-    public function addQuestion(\Tipddy\SurveyBundle\Entity\Question $questions) {
+    public function addQuestion(\Tipddy\SurveyBundle\Entity\Question $questions)
+    {
         $this->questions[] = $questions;
     
         return $this;
@@ -122,7 +137,8 @@ class Survey {
      *
      * @param \Tipddy\SurveyBundle\Entity\Question $questions
      */
-    public function removeQuestion(\Tipddy\SurveyBundle\Entity\Question $questions) {
+    public function removeQuestion(\Tipddy\SurveyBundle\Entity\Question $questions)
+    {
         $this->questions->removeElement($questions);
     }
 
@@ -131,7 +147,8 @@ class Survey {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getQuestions() {
+    public function getQuestions()
+    {
         return $this->questions;
     }
 

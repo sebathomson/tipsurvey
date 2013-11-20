@@ -18,7 +18,7 @@ class AnswerType extends AbstractType
             ->add('answer')
             ->add('photo')
             ->add('video')
-            // ->add('question')
+         //   ->add('question')
         ;
     }
     

@@ -6,12 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SurveyType extends AbstractType {
-    /**
+class SurveyType extends AbstractType
+{
+        /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
             ->add('title')
             ->add('description')
@@ -21,7 +23,8 @@ class SurveyType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Tipddy\SurveyBundle\Entity\Survey'
         ));
@@ -30,7 +33,8 @@ class SurveyType extends AbstractType {
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'tipddy_surveybundle_survey';
     }
 }

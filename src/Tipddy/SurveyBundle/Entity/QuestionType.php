@@ -10,47 +10,38 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tipsurvey_questiontype")
  * @ORM\Entity
  */
-class QuestionType {
+class QuestionType
+{
     /**
-     * @var bigint $id
-     *
-     * @ORM\Column(name="id", type="smallint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    *
+    * @ORM\Column(name="id", type="smallint", nullable=false)
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="IDENTITY")
+    */
+   private $id;
+ 
+ 
+   /**
+    * @ORM\Column(name="etiqueta", type="string", length=255, nullable=false)
+    *
+    */
+   private $etiqueta;	 
 
-    /**
-     * @ORM\Column(name="etiqueta", type="string", length=255, nullable=false)
-     */
-    private $etiqueta;
+   
+   public function __toString()
+   {
+	   return $this->getEtiqueta();
+	   
+   } 
 
-    /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="questionType", cascade={"all"})
-     *
-     */
-    protected $questions;
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * __toString
-     */
-    public function __toString() {
-        return $this->getEtiqueta();
-    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -60,9 +51,10 @@ class QuestionType {
      * @param string $etiqueta
      * @return QuestionType
      */
-    public function setEtiqueta($etiqueta) {
+    public function setEtiqueta($etiqueta)
+    {
         $this->etiqueta = $etiqueta;
-
+    
         return $this;
     }
 
@@ -71,37 +63,8 @@ class QuestionType {
      *
      * @return string 
      */
-    public function getEtiqueta() {
+    public function getEtiqueta()
+    {
         return $this->etiqueta;
-    }
-    
-    /**
-     * Add questions
-     *
-     * @param \Tipddy\SurveyBundle\Entity\Question $questions
-     * @return QuestionType
-     */
-    public function addQuestion(\Tipddy\SurveyBundle\Entity\Question $questions) {
-        $this->questions[] = $questions;
-    
-        return $this;
-    }
-
-    /**
-     * Remove questions
-     *
-     * @param \Tipddy\SurveyBundle\Entity\Question $questions
-     */
-    public function removeQuestion(\Tipddy\SurveyBundle\Entity\Question $questions) {
-        $this->questions->removeElement($questions);
-    }
-
-    /**
-     * Get questions
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getQuestions() {
-        return $this->questions;
     }
 }

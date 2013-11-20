@@ -8,33 +8,36 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tipsurvey_role")
  * @ORM\Entity
  */
-class Role implements RoleInterface
+class Role implements RoleInterface, \Serializable
 {
-    /**
-     * @var bigint $id
-     *
-     * @ORM\Column(name="id", type="smallint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+   /**
+    * @var bigint $id
+    *
+    * @ORM\Column(name="id", type="smallint", nullable=false)
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="IDENTITY")
     */
-    protected $id;
+   protected $id;
+   
+   /**
+    * @ORM\Column(name="etiqueta", type="string", length=255, nullable=false)
+    *
+    */
+   protected $etiqueta;
+   
+   
+   
+   public function getRole()
+   {
+	   return $this->getEtiqueta();
+   }
+      
+   public function __toString()
+   {
+	   return $this->getEtiqueta();
+   }
 
-    /**
-     * @ORM\Column(name="etiqueta", type="string", length=255, nullable=false)
-     *
-     */
-    protected $etiqueta;
 
-
-    public function getRole()
-    {
-        return $this->getEtiqueta();
-    }
-
-    public function __toString()
-    {
-        return $this->getRole();
-    }
 
     /**
      * Get id
@@ -55,7 +58,7 @@ class Role implements RoleInterface
     public function setEtiqueta($etiqueta)
     {
         $this->etiqueta = $etiqueta;
-
+    
         return $this;
     }
 
@@ -68,16 +71,16 @@ class Role implements RoleInterface
     {
         return $this->etiqueta;
     }
-
-    /**
+    
+     /**
      * @see \Serializable::serialize()
      */
     public function serialize()
     {
         return serialize(array(
-          $this->id,
-          $this->etiqueta
-          ));
+            $this->id,
+            $this->etiqueta
+        ));
     }
 
     /**
@@ -86,7 +89,8 @@ class Role implements RoleInterface
     public function unserialize($serialized)
     {
         list (
-          $this->id,$this->etiqueta
-          ) = unserialize($serialized);
+            $this->id,$this->etiqueta
+        ) = unserialize($serialized);
     }
+
 }

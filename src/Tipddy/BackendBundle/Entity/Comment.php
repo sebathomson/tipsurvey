@@ -3,12 +3,13 @@
 namespace Tipddy\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
  *
  * @ORM\Table(name="tipsurvey_comment")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tipddy\BackendBundle\Entity\CommentRepository")
  */
 class Comment
 {
@@ -25,26 +26,32 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     *
+     * @Assert\NotBlank()
      */
     private $description;
 
+
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="CommentType")
+     * @ORM\ManyToOne(targetEntity="TypeComment")
      * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="comment_type_id",    referencedColumnName="id")
+     * @ORM\JoinColumn(name="type_comment_id", referencedColumnName="id")
      * })
      */
-    protected $commentType; 
-
+    private $typeComment;
+    
+    
     /**
      * 
      * @ORM\ManyToOne(targetEntity="Tipddy\SecurityBundle\Entity\User")
      * @ORM\JoinColumns({
-     * @ORM\JoinColumn(name="user_id",    referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
      */
-    protected $user; 
+    private $user;
+
+
 
     /**
      * Get id
@@ -80,26 +87,42 @@ class Comment
     }
 
     /**
-     * Set commentType
+     * Set typeComment
      *
-     * @param \Tipddy\BackendBundle\Entity\CommentType $commentType
+     * @param \Tipddy\BackendBundle\Entity\TypeComment $typeComment
      * @return Comment
      */
-    public function setCommentType(\Tipddy\BackendBundle\Entity\CommentType $commentType = null)
+    public function setTypeComment(\Tipddy\BackendBundle\Entity\TypeComment $typeComment = null)
     {
-        $this->commentType = $commentType;
+        $this->typeComment = $typeComment;
     
         return $this;
     }
 
     /**
-     * Get commentType
+     * Get typeComment
      *
-     * @return \Tipddy\BackendBundle\Entity\CommentType 
+     * @return \Tipddy\BackendBundle\Entity\TypeComment 
      */
-    public function getCommentType()
+    public function getTypeComment()
     {
-        return $this->commentType;
+        return $this->typeComment;
+    }
+
+   
+   
+   
+   
+   
+   
+    /**
+     * Get user
+     *
+     * @return \Tipddy\BackendBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -113,15 +136,5 @@ class Comment
         $this->user = $user;
     
         return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Tipddy\SecurityBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 }

@@ -1,7 +1,8 @@
-TipddyBacnendBundle_dashboard:
+TipddyBackendBundle_dashboard:
     resource: "@TipddyBackendBundle/Resources/config/routing/dashboard.yml"
     prefix: /dashboard
-
-TipddyBacnendBundle_comment:
+    
+TipddyBackendBundle_comment:
     resource: "@TipddyBackendBundle/Resources/config/routing/comment.yml"
     prefix: /comment
+
